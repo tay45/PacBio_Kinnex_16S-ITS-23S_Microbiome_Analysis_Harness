@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kinnex16s-harness"
+version = "1.7.0"
+description = "PacBio Kinnex 16S-ITS-23S microbiome analysis harness"
+requires-python = ">=3.10"
+
+[project.scripts]
+kinnex16s = "kinnex16s.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

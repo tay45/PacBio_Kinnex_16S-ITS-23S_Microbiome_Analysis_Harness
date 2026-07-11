@@ -1,0 +1,2 @@
+sample_name	total_records_seen	unmapped_records	secondary_records	supplementary_records	low_mapq_records	failed_identity_records	failed_query_coverage_records	failed_alignment_length_records	mapped_primary_records_passing_filter	number_of_references_detected	min_mapq	min_identity	min_query_coverage	min_alignment_length	primary_only	multimapper_policy
+sample	20	1	0	0	2	1	1	0	15	2	20	0.97	0.90	1000	True	best_hit

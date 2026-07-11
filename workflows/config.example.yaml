@@ -1,0 +1,8 @@
+project_config: config/project.example.yaml
+
+# Dry-run friendly scaffold. Production runs require real input files and
+# external tools in PATH or the active container/module environment.
+targets:
+  comparison: results/comparison/cross_mode_summary.tsv
+  validation: results/validation/method_validation_summary.tsv
+  report: results/report/kinnex16s_report.html

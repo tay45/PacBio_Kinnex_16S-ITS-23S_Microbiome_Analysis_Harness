@@ -1,0 +1,3 @@
+expected_id	expected_name	expected_relative_abundance	expected_group	notes
+refA	Example taxon alpha	0.6	mock	Small synthetic fixture, not a benchmark result.
+refB	Example taxon beta	0.4	mock	Small synthetic fixture, not a benchmark result.

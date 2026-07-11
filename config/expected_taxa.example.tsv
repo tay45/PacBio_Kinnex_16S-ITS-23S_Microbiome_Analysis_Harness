@@ -1,0 +1,4 @@
+expected_id	expected_name	expected_relative_abundance	expected_group	notes
+example_ref_001	Example taxon alpha	0.50	mock_community	Placeholder example only; not a validation result.
+example_ref_002	Example taxon beta	0.30	mock_community	Placeholder example only; not a validation result.
+example_ref_003	Example taxon gamma	0.20	mock_community	Placeholder example only; not a validation result.

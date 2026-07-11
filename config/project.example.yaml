@@ -1,0 +1,179 @@
+project:
+  name: example_kinnex16s_project
+  description: PacBio Kinnex 16S-ITS-23S long-read amplicon analysis
+
+inputs:
+  input_bam: data/movie.hifi_reads.bam
+  adapters_fasta: refs/Kinnex_16S_Adapter_v2_MAS12.fasta
+  barcodes_fasta: refs/Kinnex_16S_384-plex_primers.fasta
+  sample_barcode_csv: config/sample_barcode.csv
+
+preprocess:
+  skip_skera: false
+  barcode_type: asymmetric
+  convert_types:
+    - fasta
+    - fastq
+  compression_level: 1
+  uncompressed: false
+
+outputs:
+  preprocess_dir: results/preprocess
+  mothur_dir: results/mothur
+
+downstream:
+  mode: mothur
+  allowed_modes:
+    - mothur
+    - pbmm2_mapping
+    - emu_abundance
+    - comparison
+    - validation
+    - report
+    - both
+    - all
+
+mothur:
+  enabled: true
+  mothur_path: mothur
+  processors: 16
+  combined_fasta: results/preprocess/combined.fasta
+  combined_group: results/preprocess/combined.groups
+  output_dir: results/mothur
+  log_file: results/mothur/mothur_processing.log
+  steps:
+    summary: true
+    screen_length: true
+    unique: false
+    align: false
+    screen_alignment: false
+    filter_alignment: false
+    precluster: false
+    chimera_vsearch: false
+    classify: true
+    remove_lineage: false
+    make_shared: false
+    classify_otu: false
+  screen_length:
+    min_length: 1000
+    max_length: 3000
+    maxambig: 0
+    maxhomop: null
+  unique:
+    enabled: false
+  align:
+    reference_fasta: null
+  screen_alignment:
+    start: null
+    end: null
+    maxhomop: null
+  filter_alignment:
+    vertical: true
+    trump: "."
+  precluster:
+    diffs: null
+    diffs_per_100bp: 1
+  chimera_vsearch:
+    dereplicate: true
+  classify:
+    reference_fasta: references/mothur/database_reference.fna
+    taxonomy_file: references/mothur/database_reference.tax
+    method: knn
+    numwanted: 1
+    search: blastplus
+    cutoff: null
+  remove_lineage:
+    taxon: Chloroplast-Mitochondria
+  make_shared:
+    label: 0.03
+  classify_otu:
+    label: 0.03
+
+pbmm2_mapping:
+  enabled: false
+  pbmm2_path: pbmm2
+  samtools_path: samtools
+  input_bam_dir: results/preprocess
+  input_bams: []
+  reference_fasta: references/curated_16s_its_23s_reference.fasta
+  reference_index: references/curated_16s_its_23s_reference.mmi
+  index_reference: true
+  output_dir: results/pbmm2_mapping
+  preset: CCS
+  threads: 16
+  filters:
+    primary_only: true
+    min_mapq: 20
+    min_identity: 0.97
+    min_query_coverage: 0.90
+    min_alignment_length: 1000
+    multimapper_policy: best_hit
+  outputs:
+    sorted_bam: true
+    bam_index: true
+    reference_counts: true
+    relative_abundance: true
+    mapping_qc: true
+    filtered_assignments: true
+    unmapped_read_ids: true
+
+emu_abundance:
+  enabled: false
+  emu_path: emu
+  output_dir: results/emu_abundance
+  input_fastq: results/preprocess/combined.fastq
+  database_dir: references/emu_database
+  threads: 16
+  input_assumption: full_length_16s
+  require_16s_only_input: true
+  min_abundance: 0.0001
+  keep_intermediate: false
+
+comparison:
+  enabled: false
+  output_dir: results/comparison
+  mothur_taxonomy_file: results/mothur/combined.good.database_reference.knn.taxonomy
+  pbmm2_reference_counts_glob: results/pbmm2_mapping/*/*.reference_counts.tsv
+  emu_abundance_file: results/emu_abundance/emu_abundance.tsv
+  outputs:
+    cross_mode_summary: true
+    method_presence_summary: true
+    interpretation_checklist: true
+
+validation:
+  enabled: false
+  output_dir: results/validation
+  expected_taxa_file: config/expected_taxa.example.tsv
+  match_mode: case_insensitive_exact
+  observed:
+    comparison_summary: results/comparison/cross_mode_summary.tsv
+    pbmm2_reference_counts_glob: results/pbmm2_mapping/*/*.reference_counts.tsv
+    emu_abundance_file: results/emu_abundance/emu_abundance.tsv
+    mothur_taxonomy_file: results/mothur/combined.good.database_reference.knn.taxonomy
+  outputs:
+    expected_taxa_recovery: true
+    missing_expected_taxa: true
+    unexpected_taxa: true
+    method_validation_summary: true
+    interpretation_checklist: true
+    validation_manifest: true
+
+report:
+  enabled: false
+  output_dir: results/report
+  report_file: results/report/kinnex16s_report.html
+  title: PacBio Kinnex 16S-ITS-23S Microbiome Analysis Harness Report
+  inputs:
+    method_presence_summary: results/comparison/method_presence_summary.tsv
+    cross_mode_summary: results/comparison/cross_mode_summary.tsv
+    interpretation_checklist: results/comparison/interpretation_checklist.md
+    validation_summary: results/validation/method_validation_summary.tsv
+    expected_taxa_recovery: results/validation/expected_taxa_recovery.tsv
+    missing_expected_taxa: results/validation/missing_expected_taxa.tsv
+    unexpected_taxa: results/validation/unexpected_taxa.tsv
+    validation_checklist: results/validation/validation_interpretation_checklist.md
+    pbmm2_qc_glob: results/pbmm2_mapping/*/*.mapping_qc.tsv
+    pbmm2_counts_glob: results/pbmm2_mapping/*/*.reference_counts.tsv
+  options:
+    max_table_rows: 50
+    include_css: true

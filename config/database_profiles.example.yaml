@@ -1,0 +1,13 @@
+mothur_reference:
+  name: example_reference
+  reference_fasta: refs/database_reference.fna
+  taxonomy_file: refs/database_reference.tax
+  method: knn
+  numwanted: 1
+  search: blastplus
+
+pbmm2_reference:
+  status: available
+  reference_fasta: refs/reference.fasta
+  reference_index: refs/reference.mmi
+  note: pbmm2_mapping performs reference-guided alignment and filtered mapping QC.

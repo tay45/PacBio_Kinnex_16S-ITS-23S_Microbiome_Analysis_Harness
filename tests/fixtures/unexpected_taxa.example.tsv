@@ -1,0 +1,2 @@
+method	observed_id	observed_name	observed_signal	raw_count	reason	source_file
+pbmm2_mapping	refC	refC	0.25	4	observed_not_in_expected_table	tests/fixtures/pbmm2_reference_counts.example.tsv

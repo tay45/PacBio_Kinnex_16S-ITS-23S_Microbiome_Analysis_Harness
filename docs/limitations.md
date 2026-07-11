@@ -1,0 +1,30 @@
+# Limitations
+
+- The pbmm2_mapping route implements reference-guided alignment and filtered mapping QC, but it does not perform probabilistic multi-mapper resolution or taxonomic abundance estimation. Reference-count summaries report mapping-derived relative signal, not absolute abundance.
+- The harness validates command construction and text parsing with unit tests, but it does not include real PacBio BAM fixtures.
+- Output file naming follows the existing Lima and mothur conventions. Confirm exact filenames when changing tool versions.
+- Taxonomic accuracy depends on the supplied reference FASTA and taxonomy files.
+- The pipeline does not claim benchmark performance, biological conclusions, or universal suitability for all long-read amplicon designs.
+- Duplicate sample names are rejected to keep `combined.groups` assignments unambiguous.
+- FASTQ-only conversion does not produce `combined.fasta` or `combined.groups`; mothur processing requires FASTA-mode preprocessing.
+- Emu depends on database completeness and input compatibility.
+- Emu relative abundance estimates are not absolute abundance.
+- For 16S-ITS-23S constructs, Emu should only be used with validated full-length 16S-compatible or trimmed input.
+- pbmm2 mapping does not guarantee taxonomic identification certainty.
+- pbmm2 mapping is not a taxonomic abundance estimator.
+- pbmm2 reference counts report mapping-derived relative signal, not absolute abundance.
+- v1.3 implements only `best_hit` multi-mapper handling and does not perform probabilistic multi-mapper resolution.
+- pbmm2 filtering thresholds must be interpreted with the reference database, amplicon design, and read structure in mind.
+- Emu is not a general 16S-ITS-23S mapper and is not a replacement for pbmm2 BAM alignment.
+- mothur length and filtering defaults should remain parameterized for PacBio Kinnex full-length data.
+- Optional mothur alignment, precluster, chimera, and OTU steps require assay-specific tuning.
+- The configurable mothur route assumes common mothur output naming and fails clearly when expected files are not present.
+- The mothur route performs sequence filtering and taxonomy classification, not abundance estimation.
+- Cross-mode comparison reports are designed for side-by-side review and comparison-ready outputs; they do not prove biological truth.
+- Validation reports depend on the quality of the user-provided expected taxa/reference table.
+- Missing expected taxa are not automatically false negatives, and unexpected observed taxa are not automatically false positives.
+- recovery_fraction is descriptive and should not be treated as a universal sensitivity estimate.
+- The Dockerfile installs Python dependencies only; production route execution still requires external bioinformatics tools.
+- The Snakemake workflow is a scaffold and dry-run aid, not a fully validated production workflow.
+- Synthetic fixtures are schema and report-generation tests, not biological benchmark datasets.
+- The HTML report summarizes available outputs and interpretation notes; it does not prove correctness or replace expert review.

@@ -1,0 +1,2 @@
+expected_id	expected_name	method	matched	matched_observed_id	matched_observed_name	observed_signal	raw_count	match_mode
+refB	Example taxon beta	pbmm2_mapping	False					case_insensitive_exact

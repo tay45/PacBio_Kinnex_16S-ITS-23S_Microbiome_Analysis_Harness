@@ -1,0 +1,3 @@
+method	expected_file	found	normalized	notes
+pbmm2_mapping	tests/fixtures/pbmm2_reference_counts.example.tsv	True	True	normalized
+emu_abundance	tests/fixtures/emu_abundance.example.tsv	True	True	normalized

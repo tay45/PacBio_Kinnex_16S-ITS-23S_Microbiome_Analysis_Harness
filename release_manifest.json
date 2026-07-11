@@ -1,0 +1,65 @@
+{
+  "project": "PacBio Kinnex 16S-ITS-23S Microbiome Analysis Harness",
+  "version": "1.7.0",
+  "status": "automated HTML report",
+  "primary_workflow": [
+    "PacBio Skera split",
+    "Lima demultiplexing",
+    "Barcode/sample validation",
+    "Invalid file quarantine",
+    "BAM to FASTA/FASTQ conversion",
+    "combined.fasta and combined.groups generation",
+    "mothur summary.seqs",
+    "mothur screen.seqs",
+    "mothur classify.seqs",
+    "optional configurable mothur steps",
+    "pbmm2 filtered reference-guided mapping QC",
+    "optional Emu full-length 16S abundance route",
+    "cross-mode comparison-ready reporting",
+    "mock-community expected-taxa validation reporting",
+    "Docker/reproducible packaging scaffold",
+    "Snakemake workflow scaffold",
+    "synthetic fixture integration tests",
+    "automated HTML report"
+  ],
+  "downstream_modes": [
+    "mothur",
+    "pbmm2_mapping",
+    "emu_abundance",
+    "comparison",
+    "validation",
+    "report",
+    "both",
+    "all"
+  ],
+  "completed_extensions": [
+    "YAML downstream routing",
+    "configurable mothur step routing",
+    "pbmm2 filtered mapping QC",
+    "Emu abundance scaffold",
+    "cross-mode comparison report",
+    "mock-community validation report",
+    "Docker/reproducible packaging scaffold",
+    "Snakemake workflow scaffold",
+    "synthetic fixture integration tests",
+    "automated HTML report"
+  ],
+  "planned_extensions": [
+    "full production container with external bioinformatics tools",
+    "Nextflow workflow option",
+    "expanded Emu output parsing and manifest validation",
+    "optional interactive report dashboard",
+    "expanded real-data integration validation when shareable public datasets are selected"
+  ],
+  "external_tools": [
+    "skera",
+    "lima",
+    "bam2fasta",
+    "bam2fastq",
+    "samtools",
+    "mothur",
+    "pbmm2",
+    "emu"
+  ],
+  "notes": "No benchmark results or biological conclusions are included."
+}

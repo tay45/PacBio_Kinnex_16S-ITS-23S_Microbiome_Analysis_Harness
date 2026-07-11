@@ -1,0 +1,2 @@
+method	expected_taxa_count	observed_features_count	matched_expected_count	missing_expected_count	unexpected_observed_count	recovery_fraction	notes
+pbmm2_mapping	2	2	1	1	1	0.5	Descriptive recovery against user-provided expected table.

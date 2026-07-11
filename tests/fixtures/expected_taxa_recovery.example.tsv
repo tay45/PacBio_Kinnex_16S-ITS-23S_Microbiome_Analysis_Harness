@@ -1,0 +1,2 @@
+expected_id	expected_name	method	matched	matched_observed_id	matched_observed_name	observed_signal	raw_count	match_mode
+refA	Example taxon alpha	pbmm2_mapping	True	refA	refA	0.75	12	case_insensitive_exact

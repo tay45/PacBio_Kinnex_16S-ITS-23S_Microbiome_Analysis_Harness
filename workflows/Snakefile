@@ -1,0 +1,52 @@
+configfile: "workflows/config.example.yaml"
+
+PROJECT_CONFIG = config.get("project_config", "config/project.example.yaml")
+
+
+rule all:
+    input:
+        config["targets"]["comparison"],
+        config["targets"]["validation"],
+        config["targets"]["report"]
+
+
+rule preprocess:
+    output:
+        touch("results/preprocess/.preprocess_scaffold")
+    shell:
+        "mkdir -p results/preprocess && "
+        "echo 'Preprocess scaffold: run kinnex16s preprocess with real PacBio inputs and external tools.' > {output}"
+
+
+rule downstream:
+    input:
+        "results/preprocess/.preprocess_scaffold"
+    output:
+        touch("results/.downstream_complete")
+    shell:
+        "PYTHONPATH=src python -m kinnex16s downstream --config {PROJECT_CONFIG} && touch {output}"
+
+
+rule compare:
+    output:
+        config["targets"]["comparison"]
+    shell:
+        "PYTHONPATH=src python -m kinnex16s compare --config {PROJECT_CONFIG}"
+
+
+rule validate:
+    input:
+        config["targets"]["comparison"]
+    output:
+        config["targets"]["validation"]
+    shell:
+        "PYTHONPATH=src python -m kinnex16s validate --config {PROJECT_CONFIG}"
+
+
+rule report:
+    input:
+        config["targets"]["validation"]
+    output:
+        config["targets"]["report"]
+    shell:
+        "PYTHONPATH=src python -m kinnex16s report --config {PROJECT_CONFIG}"
