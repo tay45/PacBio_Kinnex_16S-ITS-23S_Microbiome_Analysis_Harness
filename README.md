@@ -1,5 +1,7 @@
 # PacBio Kinnex 16S-ITS-23S Microbiome Analysis Harness
 
+[![CI](https://github.com/tay45/PacBio_Kinnex_16S-ITS-23S_Microbiome_Analysis_Harness/actions/workflows/ci.yml/badge.svg)](https://github.com/tay45/PacBio_Kinnex_16S-ITS-23S_Microbiome_Analysis_Harness/actions/workflows/ci.yml)
+
 Current release: `1.7.0` automated HTML report.
 
 This repository is a reproducible analysis harness for PacBio Kinnex 16S-ITS-23S long-read amplicon microbiome data. It supports PacBio-specific preprocessing with Skera, Lima, `bam2fasta`, `bam2fastq`, and `samtools faidx`, followed by mothur-based sequence screening and taxonomy classification.
