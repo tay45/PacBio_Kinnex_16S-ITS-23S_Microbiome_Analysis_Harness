@@ -1,0 +1,25 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test/cache artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local outputs
+results/
+output/
+outputs/
+invalid_files/
+
+# Large sequencing/index files
+*.bam
+*.bai
+*.fastq
+*.fq
+*.fasta
+*.fa
+*.mmi
